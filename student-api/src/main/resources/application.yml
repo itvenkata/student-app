@@ -19,3 +19,9 @@ logging:
         type:
           descriptor:
             sql: trace
+
+
+course:
+  service:
+    url: http://localhost:8091/
+    name: CourseFeignClient

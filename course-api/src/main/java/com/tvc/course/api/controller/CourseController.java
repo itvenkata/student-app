@@ -86,4 +86,9 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.OK).body("successfully deleted course");
     }
 
+    @GetMapping("/courseCode/{courseCode}")
+    public Course getCourseByCode(@PathVariable String courseCode) {
+        return courseService.getCourseByCode(courseCode);
+    }
+
 }

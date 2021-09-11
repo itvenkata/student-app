@@ -82,4 +82,14 @@ public class CourseService {
         courseRepository.delete(updatedCourse.get());
     }
 
+
+    public Course getCourseByCode(String courseCode){
+        Optional<Course> course=  courseRepository.findByCourseCode(courseCode);
+        if(course.isPresent()){
+            return course.get();
+        }else{
+            throw new CourseNotFoundException("Course Not Found By Course Code "+courseCode);
+        }
+    }
+
 }
