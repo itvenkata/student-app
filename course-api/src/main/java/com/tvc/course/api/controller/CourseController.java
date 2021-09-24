@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import com.tvc.course.api.model.Course;
 import com.tvc.course.api.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,8 +58,9 @@ public class CourseController {
      * @return
      */
     @GetMapping("/{id}")
-    public Course showCourseInfo(@PathVariable Long id) {
-        return courseService.getCourseInfo(id);
+    public HttpEntity<Course> showCourseInfo(@PathVariable Long id) {
+        return new ResponseEntity(courseService.getCourseInfo(id), HttpStatus.OK);
+
     }
 
     /**
@@ -87,8 +89,10 @@ public class CourseController {
     }
 
     @GetMapping("/courseCode/{courseCode}")
-    public Course getCourseByCode(@PathVariable String courseCode) {
-        return courseService.getCourseByCode(courseCode);
+    public ResponseEntity<Course> getCourseByCode(@PathVariable String courseCode) {
+      //  return courseService.getCourseByCode(courseCode);
+
+        return new ResponseEntity(courseService.getCourseByCode(courseCode), HttpStatus.OK);
     }
 
 }

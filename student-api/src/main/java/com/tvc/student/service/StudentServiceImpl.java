@@ -1,6 +1,5 @@
 package com.tvc.student.service;
 
-import com.tvc.student.client.CourseClient;
 import com.tvc.student.entity.Course;
 import com.tvc.student.entity.Student;
 import com.tvc.student.exception.CourseNotFoundException;
@@ -24,16 +23,14 @@ public class StudentServiceImpl implements StudentService {
     private AddressRepository addressRepository;
 
     @Autowired
-    private CourseClient courseClient;
+    private CourseService courseService;
 
-
-    @Override
     public Student createStudent(Student studuent) {
         try {
             Set<Course> coureSet = new HashSet<>();
             for (Course c : studuent.getCourses()) {
                 log.info(c.toString());
-                Course clientCourse = courseClient.findByCourseCode(c.getCourseCode());
+                Course clientCourse = courseService.getCourse(c.getCourseCode());
                 coureSet.add(clientCourse);
             }
             studuent.setCourses(coureSet);
@@ -44,6 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
         return studentRepository.save(studuent);
     }
+
 
     @Override
     public Student getStudent(Integer studentId) {
@@ -60,4 +58,6 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(studentId);
         return "deleted successfully";
     }
+
+
 }
